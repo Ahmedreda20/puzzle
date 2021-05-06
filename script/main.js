@@ -9,7 +9,7 @@ async function getVectors(uri) {
         final.forEach((item) => {
             container.innerHTML += `<div class="items-st w-full h-auto md:h-36 bg-white relative overflow-hidden cursor-pointer p-5 transition ease-in-out duration-500 flex items-center justify-center" data-id="${item.id}" tabindex="0" role="button" aria-pressed="false">
               <img
-                  src="/img/vectors/${item.path}"
+                  src="./img/vectors/${item.path}"
                   class="max-w-full max-h-40 md:max-h-full object-cover"
                   alt="${item.name}"
               />
@@ -20,7 +20,7 @@ async function getVectors(uri) {
     }
 }
 
-getVectors(`${window.location.origin}/script/images.json`);
+getVectors(`./script/images.json` || `${window.location.href}/script/images.json`);
 
 function activeAllFunctions() {
     const items = document.querySelectorAll(".items-st");
@@ -51,14 +51,14 @@ function activeAllFunctions() {
                         lastItem.classList.add('hidden');
                         arr = [], newItems = [];
 
-                        pushSoundEffects(`${window.location.origin}/assets/sounds/true.mp3`);
+                        pushSoundEffects(`${window.location.href}/assets/sounds/true.mp3` || `./assets/sounds/true.mp3`);
                     }, 250);
 
                 } else {
                     setTimeout(() => {
                         newItems.forEach(not => not.classList.replace("items-after-hidden", "items-st"));
                         arr = [], newItems = [];
-                        pushSoundEffects(`${window.location.origin}/assets/sounds/false.mp3`);
+                        pushSoundEffects(`${window.location.href}/assets/sounds/false.mp3` || `./assets/sounds/false.mp3`);
 
                     }, 250);
 
@@ -98,7 +98,7 @@ function setTime() {
 function setAnotherTimer() {
     const popupConrtainer = document.querySelector('.popup-container');
     popupConrtainer.classList.remove('hidden');
-    pushSoundEffects(`${window.location.origin}/assets/sounds/over.mp3`);
+    pushSoundEffects(`${window.location.href}/assets/sounds/over.mp3` || `./assets/sounds/over.mp3`);
     document.title = "Puzzle | Game over 😢";
 
     let popupInterVal = setInterval(() => {
