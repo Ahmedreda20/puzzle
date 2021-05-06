@@ -78,7 +78,6 @@ function pushSoundEffects(uri) {
 const timer = document.querySelector('.timer-clock');
 
 var totalSeconds = 0;
-const interval = setInterval(setTime, 1000);
 const timerEleme = document.querySelector('.timer-elem');
 
 function setTime() {
@@ -171,6 +170,7 @@ function checkCookie() {
     cookiesContainer.querySelector('button').onclick = () => {
         setCookie('cookies_enable', true, 30);
         cookiesContainer.classList.add('hidden');
+        window.location.reload();
     }
 
     Boolean(getCookie('cookies_enable')) ? checkAnotherDataSaved() : checkCookie();
@@ -222,6 +222,7 @@ function ShowUserDataInsideTheirElements(name) {
         document.querySelector('.loader-container').classList.add('hidden');
         document.querySelector('.summary-container').classList.add('hidden');
         document.querySelector('.username').innerHTML = name;
+        const interval = setInterval(setTime, 1000);
     } else {
         checkCookie();
     }
