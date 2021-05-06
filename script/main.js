@@ -223,6 +223,8 @@ function ShowUserDataInsideTheirElements(name) {
         document.querySelector('.summary-container').classList.add('hidden');
         document.querySelector('.username').innerHTML = name;
         const interval = setInterval(setTime, 1000);
+        document.body.classList.remove('overflow-y-hidden');
+
     } else {
         checkCookie();
     }
