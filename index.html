@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="assets/style/tailwindcss.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css" integrity="sha512-vZWT27aGmde93huNyIV/K7YsydxaafHLynlJa/4aPy28/R1a/IxewUH4MWo7As5I33hpQ7JS24kwqy/ciIFgvg==" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600&display=swap" rel="stylesheet" />
+
+    <link rel="icon" href="img/favicon.png" type="image/png">
+    <!-- seo -->
+    <meta name="author" content="Ahmed Reda" />
+
+    <meta name="description" content="Welcome to puzzle game, hurry up register and start the game 🎉😎">
+    <meta name="keywords" content="puzzle, game , game.js">
+
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="puzzle" />
+    <meta property="og:locale" content="en_EN" />
+    <meta property="og:locale:alternate" content="en_EN" />
+    <meta property="og:url" content="https://ahmedreda20.github.io/puzzle/" />
+    <meta property="og:title" content="Puzzle | Game 😍👌" />
+    <meta property="og:description" content="Welcome to puzzle game, hurry up register and start the game 🎉😎" />
+    <meta property="og:image" content="https://ahmedreda20.github.io/puzzle/img/bg.min.png" />
+
+    <meta itemprop="name" content="puzzle game" />
+    <meta itemprop="url" content="https://ahmedreda20.github.io/puzzle/" />
+    <meta itemprop="author" content="Ahmed Reda" />
+    <meta itemprop="image" content="https://ahmedreda20.github.io/puzzle/img/bg.min.png" />
+    <meta itemprop="description" content=" Welcome to puzzle game, hurry up register and start the game 🎉😎" />
+
+
+    <meta name="twitter:image" content="https://ahmedreda20.github.io/puzzle/img/bg.min.png">
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Puzzle | Game 😍👌" />
+    <meta name="twitter:image:src" content="https://ahmedreda20.github.io/puzzle/img/bg.min.png" />
+    <meta name="twitter:description" content="Welcome to puzzle game, hurry up register and start the game 🎉😎" />
+    <style>
+        .font-maven {
+            font-family: "Maven Pro", sans-serif !important;
+        }
+        
+        *,
+        *::after,
+        *::before,
+        button,
+        select,
+        input,
+        textarea {
+            outline: none !important;
+        }
+        
+        .items-st::after {
+            position: absolute;
+            content: "\f11b";
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            font-size: 2rem;
+            font-weight: 600;
+            font-family: "Font Awesome 5 Free";
+            background-color: #222222;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.5s ease-in-out;
+            -webkit-transition: 0.5s ease-in-out;
+            -moz-transition: 0.5s ease-in-out;
+            -ms-transition: 0.5s ease-in-out;
+            -o-transition: 0.5s ease-in-out;
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+        }
+        
+        .items-after-hidden {
+            box-shadow: 0 0 0 3px rgb(209, 150, 0);
+        }
+        
+        .items-after-hidden::after {
+            top: -100%;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        
+        .popup-box {
+            animation: scale 0.5s forwards;
+        }
+        
+        @keyframes scale {
+            0% {
+                transform: scale(0.9);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            75% {
+                tramform: scale(0.8);
+            }
+            100% {
+                tramform: scale(1);
+            }
+        }
+        
+        .welcome-msg::after {
+            position: absolute;
+            content: "";
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0.5rem;
+            background-color: rgba(251, 191, 36, 0.5);
+            z-index: -1;
+        }
+        
+        .circle-elem {
+            stroke-width: 4;
+            stroke: orangered;
+            stroke-dasharray: 190;
+            stroke-dashoffset: 0;
+            stroke-linecap: round;
+            animation: loaderAnimate 1s infinite linear;
+        }
+        
+        @keyframes loaderAnimate {
+            0% {
+                stroke-dashoffset: 190;
+            }
+            50% {
+                stroke-dashoffset: 0;
+            }
+            75% {
+                stroke-dashoffset: 0;
+            }
+            100% {
+                stroke-dashoffset: -190;
+            }
+        }
+    </style>
+    <title>Puzzle | Game 😍👌</title>
+</head>
+
+<body class="font-maven bg-yellow-400">
+    <section class="lg:container mx-auto p-5 min-h-screen">
+        <div class="relative w-full pb-5">
+            <h1 class="text-2xl font-semibold py-1">
+                Welcome, <span class="px-1 inline-block username capitalize"></span>
+            </h1>
+            <h2 class="text-xl font-medium py-1">
+                ⌚ : <span class="inline-block px-1 timer-clock">00:00</span>
+            </h2>
+            <h2 class="text-xl font-medium py-1">
+                🏆 : <span class="inline-block px-1">0</span>
+            </h2>
+        </div>
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 items-container"></div>
+        <!-- popup container after time selected ended -->
+        <div class="popup-container fixed hidden flex items-center justify-center inset-0 bg-black backdrop-filter backdrop-blur-sm z-10 bg-opacity-50 p-6 w-full h-screen">
+            <div class="popup-box p-4 bg-white w-full text-center block md:max-w-screen-sm">
+                <h1 class="text-4xl  py-6 text-orange-200">
+                    <i class="fas fa-info-circle text-yellow-300"></i>
+                </h1>
+                <p class="sm:text-xl font-medium py-3 px-4 text-gray-600">
+                    All fields must be completed within 10 minutes, no more than that, and if you lose, one round will be deducted from the rounds that you got.
+                </p>
+                <p class="my-3 sm:text-xl font-medium table text-gray-400 mx-auto">Location will load after</p>
+                <span class="timer-elem table font-bold mx-auto py-2 px-6 bg-yellow-200 text-gray-800  rounded-md my-3"></span>
+            </div>
+        </div>
+        <!-- popup summary when page loaded first time only -->
+        <div class="summary-container overflow-x-hidden overflow-y-auto hidden fixed p-3 inset-0 bg-yellow-400 w-full h-screen">
+            <div class="popup-box p-4 flex items-start justify-start md:text-left md:flex-row flex-col-reverse text-center bg-white w-full block md:max-w-screen-lg">
+                <div class="w-full md:w-1/2 p-3">
+                    <h1 class="text-2xl p-3 text-center font-semibold">Welcome to puzzle game 🎉😎</h1>
+                    <p class="p-3 text-xl  relative font-medium">
+                        Before <span class="welcome-msg relative z-10">starting</span>, you must know the conditions before <span class="welcome-msg relative z-10">playing</span>.
+                        <ul class="list-none list-inside font-medium text-gray-500">
+                            <li class="p-3">
+                                In the beginning, you must know that cookies are used on that single page to store some of the necessary fees for the game and your data such as mail and others.
+                            </li>
+                            <li class="p-3">
+                                You should be careful not to open any file related to that page to tamper with or see the used items. There are no codes that penetrate nature until you discover them. In that case, you will be directed to another page and I do not prefer that for you
+                                until you enjoy the game more.</li>
+                            <li class="p-3">
+                                If you liked the game, I would be grateful and grateful if you shared the link below with your friends and others.</li>
+                            <li class="p-3 relative">
+                                <span class="table absolute bottom-full left-1/2 py-2 px-4 rounded-md bg-green-200 font-medium text-center transform -translate-x-1/2 text-green-700 opacity-0 transform-y-1/2 transition ease-in-out duration-300">Copied successfully..</span>
+                                <input type="text" name="share" id="share" placeholder="Link loading..." readonly class="w-full py-2 px-4 text-center placeholder-gray-500 font-medium rounded-md my-2 bg-gray-100 cursor-pointer">
+                            </li>
+                            <li class="p-3">thank you my dear</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="w-full md:w-1/2 p-3">
+                    <form class="relative w-full">
+                        <div class="w-full my-3">
+                            <label for="user" class="block mb-2 font-medium text-black">Username</label>
+                            <input type="text" name="user" id="user" placeholder="username" required autocomplete="off" spellcheck="true" class="w-full py-3 px-4 placeholder-gray-500 font-medium rounded-md my-2 bg-gray-100">
+                        </div>
+                        <div class="w-full my-3">
+                            <label for="email" class="block mb-2 font-medium text-black">E-mail Address</label>
+                            <input type="email" name="email" id="email" placeholder="example@example.com" required autocomplete="off" spellcheck="true" class="w-full py-3 px-4 placeholder-gray-500 font-medium rounded-md my-2 bg-gray-100">
+                        </div>
+                        <div class="w-full my-3">
+                            <button class="table w-auto py-2 px-4 bg-yellow-400 text-black font-semibold rounded-md text-center" name="submit" id="submit_auth" aria-label="submit button to start game">login & Start</button>
+                        </div>
+                        <p class="p-3 font-medium text-left text-gray-500">
+                            You can't start game without login first
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- loader before get the content -->
+        <div class="loader-container flex items-center justify-center inset-0 w-full h-screen block mx-auto fixed bg-yellow-400">
+            <div class="w-16 h-16 relative">
+                <svg fill="none" class="w-full h-full">
+                    <circle cx="32" cy="32" r="30"  class="circle-elem transition ease-in-out duration-300"></circle>
+                </svg>
+                <span class="text-xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 emoji-icons">😍</span>
+            </div>
+        </div>
+        <!-- cookies container -->
+        <div class="cookies-container fixed bottom-0 p-5 border-2 border-black bg-white left-1/2 transform -translate-x-1/2 w-11/12 z-20 h-auto my-6 pl-20 lg:mx-auto  2xl:container  hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 absolute top-5 left-5 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+            <h1 class="text-xl font-medium pb-3">
+                Please pay attention to that note!
+            </h1>
+            <p class="font-light text-gray-700 font-medium">
+                Cookies can be used on that page to provide you with ease of use by clicking the accept button and close. This will be approved and the registration will start. This message will be shown only once if you only agree, then you will be directed to the page
+                automatically in case you saved the registration data.
+            </p>
+            <button class="bg-transparent border-2 border-black py-2 px-5 table ml-auto mt-3 text-sm font-medium cursor-pointer hover:bg-black hover:text-white transition ease-in-out duration-300">
+        Accept & Close
+      </button>
+        </div>
+    </section>
+    <script src="script/main.js"></script>
+</body>
+
+</html>
