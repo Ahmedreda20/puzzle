@@ -3,32 +3,61 @@ const container = document.querySelector(".items-container");
 async function getVectors(uri) {
     const res = await fetch(uri).then((res) => res.json());
     const data = res.images;
+
     for (let i = data.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
         let final = ([data[i], data[j]] = [data[j], data[i]]);
-        final.forEach((item) => {
-            container.innerHTML += `<div class="items-st w-full h-auto md:h-36 bg-white relative overflow-hidden cursor-pointer p-5 transition ease-in-out duration-500 flex items-center justify-center" data-id="${item.id}" tabindex="0" role="button" aria-pressed="false">
-              <img
-                  src="./img/vectors/${item.path}"
-                  class="max-w-full max-h-40 md:max-h-full object-cover"
-                  alt="${item.name}"
-              />
-      </div>`;
-        });
-
-        activeAllFunctions();
+        filterItems(final, data);
     }
 }
 
 getVectors(`./script/images.json` || `${window.location.href}/script/images.json`);
+
+function filterItems(items, data) {
+    const loaderSpinner = document.querySelector('.loader-container');
+    const loadingContainer = document.querySelector('.items-container-loading');
+    const seenArr = new Set();
+
+    const filterArr = items.filter(elem => {
+        const elemDuolicate = seenArr.has(elem.id);
+        seenArr.add(elem.id);
+        return !elemDuolicate;
+    });
+
+    // console.log("filter array after filter seen =>", filterArr, "items =>", items);
+
+    filterArr.forEach(newIt => {
+        container.innerHTML += `<div class="items-st puzzle-item w-full h-auto md:h-36 bg-white relative overflow-hidden cursor-pointer p-5 transition ease-in-out duration-500 flex items-center justify-center" data-id="${newIt.id}" tabindex="0" role="button" aria-pressed="false">
+        <img
+        src="./img/vectors/${newIt.path}"
+        class="max-w-full max-h-40 md:max-h-full object-cover"
+        alt="${newIt.name}"
+        />
+        </div>`;
+    });
+
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        img.onload = e => {
+            loadingContainer.remove();
+        }
+    });
+
+    activeAllFunctions();
+}
+
+const puzzleItems = document.querySelectorAll('.puzzle-item');
+
+
+function getUniqueListBy(arr, key) {
+    return [...new Map(arr.map(item => [item[key], item])).values()]
+}
 
 function activeAllFunctions() {
     const items = document.querySelectorAll(".items-st");
     let arr = [];
     items.forEach((item) => {
         item.onclick = () => {
-            let image = item.querySelector("img").src;
-
             item.classList.replace("items-st", "items-after-hidden");
 
             arr.push(...arr, item);
@@ -68,14 +97,18 @@ function activeAllFunctions() {
 
         };
     });
+
 }
+
 
 
 function pushSoundEffects(uri) {
     let audio = new Audio(uri);
     audio.play();
 }
+
 const timer = document.querySelector('.timer-clock');
+const interval = setInterval(setTime, 1000);
 
 var totalSeconds = 0;
 const timerEleme = document.querySelector('.timer-elem');
